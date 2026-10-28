@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Configuration directories
+IMAGE_DIR="$HOME/.config/fastfetch/images"
+
+# Check if image directory exists and has files
+if [ -d "$IMAGE_DIR" ] && [ "$(ls -A "$IMAGE_DIR" 2>/dev/null)" ]; then
+    IMAGE=$(find "$IMAGE_DIR" -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.webp" \) | shuf -n 1)
+    if [ -n "$IMAGE" ]; then
+        # Preserve original aspect ratio at 42-column width
+        chafa -s 42 "$IMAGE"
+        echo ""
+    fi
+fi
+
+# Run fastfetch text layout
+fastfetch --logo none
